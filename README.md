@@ -1,6 +1,6 @@
-# SimpleTasks
+# FileMetadata
 
-Simple tasks for study.
+Provide file data.
 
 # Usage 
 
@@ -36,4 +36,5 @@ Create ImageFile object
 # Dependencies
 
 python3 -m pip install Pillow
+python3 -m pip install python-magic
 
