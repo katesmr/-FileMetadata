@@ -59,7 +59,9 @@ class ImageFile(BaseFile):
         """
         :return:
         """
-        return find_repeatable_images(path, self.image)
+        thread = ThreadManager(find_repeatable_images, [path, self.image])
+        thread.start()
+        return thread.return_value()
 
     def get_description(self):
         """
