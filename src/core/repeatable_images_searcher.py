@@ -26,12 +26,22 @@ def find_repeatable_images(path, image):
     :param image: Image
     :return: list - list of paths of equal images
     """
+    result = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            child = os.path.join(root, file)
+            try:
+                # get any image type
+                comparison_image = Image.open(child)
+            except IOError:
+                continue
+            if is_equal_image(image, comparison_image):
+                result.append(child)
+    return result
+
+"""
+def find_repeatable_images(path, image):
     def scan_dir(parent, image_obj):
-        """
-        :param parent: str
-        :param image_obj: Image
-        :return:
-        """
         for token in os.listdir(parent):
             child = os.path.join(parent, token)
             if os.path.isdir(child):
@@ -48,3 +58,4 @@ def find_repeatable_images(path, image):
     res = []
     scan_dir(path, image)
     return res
+"""

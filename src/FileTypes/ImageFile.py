@@ -1,12 +1,13 @@
 import logging
 from PIL import Image
 from src.FileTypes.BaseFile import BaseFile
-from src.core.image_color_list import image_color_list
+from src.core.ThreadManager import ThreadManager
 from src.core.image_comment import image_comment
-from src.core.image_description import image_description
 from src.core.image_exif_data import image_exif_data
-from src.core.image_most_commonly_color import image_most_commonly_color
+from src.core.image_color_list import image_color_list
+from src.core.image_description import image_description
 from src.core.repeatable_images_searcher import find_repeatable_images
+from src.core.image_most_commonly_color import image_most_commonly_color
 
 
 class ImageFile(BaseFile):
@@ -44,7 +45,9 @@ class ImageFile(BaseFile):
         """
         :return: list - list of tuples, where first value is color count, second value - tuple - color rgb value
         """
-        return image_color_list(self.image, self.width, self.height, True)
+        thread = ThreadManager(image_color_list, [self.image, self.width, self.height])
+        thread.start()
+        return thread.return_value()
 
     def get_most_commonly_color(self):
         """

@@ -1,28 +1,30 @@
+import os
 import unittest
 from src.FileTypes.ImageFile import ImageFile
 
 
 class ImageFileTests(unittest.TestCase):
     def setUp(self):
-        self.image_file = ImageFile("/home/kate/Pictures/Untitled.png")
+        self.image_file = ImageFile(os.path.abspath("Untitled.png"))
 
     def test_image_width(self):
-        self.assertEqual(self.image_file.get_width(), 255)
+        self.assertEqual(self.image_file.get_width(), 512)
 
     def test_image_height(self):
-        self.assertEqual(self.image_file.get_height(), 255)
+        self.assertEqual(self.image_file.get_height(), 512)
 
     def test_color_list(self):
         self.assertEqual(self.image_file.get_color_list(),
-                         [(39747, (255, 255, 255)), (16983, (255, 0, 252)),
-                          (4500, (0, 78, 255)), (3795, (0, 255, 222))])
+                         [(104755, (255, 255, 255)), (36488, (0, 30, 255)), (27528, (0, 0, 0)), (20464, (255, 0, 0)),
+                          (18328, (0, 255, 6)), (18283, (255, 222, 0)), (15042, (0, 255, 222)), (10336, (255, 144, 0)),
+                          (5681, (255, 0, 204)), (5239, (0, 255, 132))])
 
     def test_most_commonly_color(self):
         self.assertEqual(self.image_file.get_most_commonly_color(), [(255, 255, 255)])
 
     def test_repeatable_files(self):
-        self.assertEqual(self.image_file.get_repeatable_files("/home/kate/Pictures/"),
-                         ['/home/kate/Pictures/Untitled.png', '/home/kate/Pictures/Untitled.jpg'])
+        self.assertEqual(self.image_file.get_repeatable_files(os.path.abspath("../../tests")),
+                         ["/home/kate/Documents/FileMetadata/tests/FileTypesTest/Untitled.png"])
 
     def test_description(self):
         self.assertEqual(self.image_file.get_description(), {})
