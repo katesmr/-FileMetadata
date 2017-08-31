@@ -1,18 +1,14 @@
-import threading
+from multiprocessing.pool import ThreadPool
 
 
-class ThreadManager(threading.Thread):
+class ThreadManager(ThreadPool):
     def __init__(self, callback=None, data=None):
         super().__init__()
-        self.daemon = True
+        self.processes = 1
         self.__result = None
-        self.__callback = callback
-        self.__data = data
+        assert isinstance(data, tuple)
+        if callback:
+            self.__result = self.apply_async(callback, data)
 
-    def run(self):
-        assert isinstance(self.__data, list)
-        if self.__callback:
-            self.__result = self.__callback(*self.__data)
-
-    def return_value(self):
-        return self.__result
+    def result(self):
+        return self.__result.get()

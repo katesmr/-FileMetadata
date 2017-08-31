@@ -45,9 +45,8 @@ class ImageFile(BaseFile):
         """
         :return: list - list of tuples, where first value is color count, second value - tuple - color rgb value
         """
-        thread = ThreadManager(image_color_list, [self.image, self.width, self.height])
-        thread.start()
-        return thread.return_value()
+        thread = ThreadManager(image_color_list, (self.image, self.width, self.height))
+        return thread.result()
 
     def get_most_commonly_color(self):
         """
@@ -59,9 +58,8 @@ class ImageFile(BaseFile):
         """
         :return:
         """
-        thread = ThreadManager(find_repeatable_images, [path, self.image])
-        thread.start()
-        return thread.return_value()
+        thread = ThreadManager(find_repeatable_images, (path, self.image))
+        return thread.result()
 
     def get_description(self):
         """
