@@ -34,7 +34,17 @@ Create ImageFile object
 ```
 
 # Dependencies
-
+1) Install PIL library
+```
 python3 -m pip install Pillow
+```
+2) Install magic libray
+For Unix:
+```
 python3 -m pip install python-magic
+```
+For Windows:
+```
+...
+```
 
