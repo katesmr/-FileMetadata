@@ -38,7 +38,7 @@ Create ImageFile object
 ```
 python3 -m pip install Pillow
 ```
-2) Install magic libray
+2) Install magic libray <br />
 For Unix:
 ```
 python3 -m pip install python-magic
